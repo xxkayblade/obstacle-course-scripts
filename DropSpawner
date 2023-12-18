@@ -1,0 +1,37 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+// drops obstacles after player collides with drop trigger
+
+public class DropSpawner : MonoBehaviour
+{
+    public GameObject droppedObstacle;
+
+    private float dropCounter = 0;
+    private float dropZ = 130; 
+    private float dropX = -2.4f;
+
+    void OnCollisionEnter(Collision other)
+    {
+        while (dropCounter <= 5)
+        {
+            Instantiate(droppedObstacle, new Vector3(dropX, 8, dropZ), Quaternion.identity);
+
+            dropCounter++;
+
+            dropZ += 9;
+            
+            if (dropX < 0)
+            {
+                dropX = 2.4f;
+            }
+            else
+            {
+                // sets float dropX to -2.4f
+                dropX = -2.4f;
+            }
+        }
+    }
+
+}
