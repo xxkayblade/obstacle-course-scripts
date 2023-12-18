@@ -1,0 +1,70 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+// sets movement and jump for player 
+
+public class PlayerMovement : MonoBehaviour
+{
+
+    private float horiInput;
+
+    [SerializeField] float movementSpeed = 7f;
+    [SerializeField] float continuousMovement = 15f;
+
+    [SerializeField] float jumpHeight = 8f;
+    [SerializeField] float fallMultiplier = 3.5f;
+    [SerializeField] float lowJumpMultiplier = 3f;
+
+    private bool isJumping;
+
+    Rigidbody playerRB;
+    
+    void Start()
+    {
+        playerRB = GetComponent<Rigidbody>();
+
+        isJumping = false;
+    }
+
+    void Update()
+    {
+        Movement();
+
+        Jump();
+    }
+
+    void Movement()
+    {
+        horiInput = Input.GetAxisRaw("Horizontal") * movementSpeed * Time.deltaTime;
+
+        transform.Translate(horiInput, 0, continuousMovement * Time.deltaTime);
+    }
+
+    void Jump()
+    {
+        if (Input.GetButtonDown("Jump") && isJumping == false)
+        {
+            playerRB.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+
+            isJumping = true;
+        }
+
+        if (playerRB.velocity.y < 0)
+        {
+            playerRB.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime; 
+        }
+        else if (playerRB.velocity.y > 0 && !Input.GetButton("Jump"))
+        {
+            playerRB.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+        }
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Platform")
+        {
+            isJumping = false; 
+        }
+    }
+}
