@@ -1,0 +1,30 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Dynamic;
+using UnityEngine;
+
+// if the players hit any obstacles or walls, it will reset them to beginning position
+
+public class PlayerReset : MonoBehaviour
+{
+    private float resetX;
+    private float resetY;
+    private float resetZ;
+    
+    
+    // Start is called before the first frame update
+    void Start()
+    {
+        resetX = 0f;
+        resetY = 0.5f;
+        resetZ = 0f;
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Wall" || other.gameObject.layer == 6)
+        {
+            transform.position = new Vector3(resetX, resetY, resetZ);
+        }
+    }
+}
