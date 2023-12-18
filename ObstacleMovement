@@ -1,0 +1,55 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+// sets movement for some obstacles
+
+public class ObstacleMovement : MonoBehaviour
+{
+
+    float posSpeed;
+    float negSpeed;
+
+    bool rightMove;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        posSpeed = 7f;
+        negSpeed = 7f;
+
+        rightMove = true;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.Translate(posSpeed * Time.deltaTime, 0, 0);
+
+        if (transform.position.x >= 3.50f)
+        {
+            posSpeed = 0f;
+            negSpeed = -7f;
+
+            rightMove = false;
+        }
+        else if (transform.position.x <= -3.50f)
+        {
+            negSpeed = 0f;
+            posSpeed = 4f;
+
+            rightMove = true;
+        }
+
+        if (rightMove == true)
+        {
+            transform.Translate(posSpeed * Time.deltaTime, 0, 0);
+        }
+        else if (rightMove == false)
+        {
+            transform.Translate(negSpeed * Time.deltaTime, 0, 0);
+        }
+    }
+}
+
+
