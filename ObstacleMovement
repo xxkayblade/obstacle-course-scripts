@@ -7,49 +7,67 @@ using UnityEngine;
 public class ObstacleMovement : MonoBehaviour
 {
 
+    // sets variables posSpeed and negSpeed as floats
     float posSpeed;
     float negSpeed;
 
+    // sets variable rightMove as bool
     bool rightMove;
 
     // Start is called before the first frame update
     void Start()
     {
+        // intially sets floats posSpeed and negSpeed as 7f
         posSpeed = 7f;
         negSpeed = 7f;
 
+        // initially sets bool rightMove as true
         rightMove = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // sets movement for attached game object along the x-axis
         transform.Translate(posSpeed * Time.deltaTime, 0, 0);
 
+
+        // if position on x-axis is greater than or equal to 3.50f
         if (transform.position.x >= 3.50f)
         {
+            // changes floats posSpeed to 0f and negSpeed to -7f
             posSpeed = 0f;
             negSpeed = -7f;
 
+            // sets bool rightMove to false
             rightMove = false;
         }
+        // if position on x-axis is less than or equal to -3.50f
         else if (transform.position.x <= -3.50f)
         {
+            // changes floats negSpeed to 0f and posSpeed to 4f
             negSpeed = 0f;
             posSpeed = 4f;
 
+            // sets bool rightMove to false
             rightMove = true;
         }
 
+
+        // if bool rightMove is set to true
         if (rightMove == true)
         {
+            // sets movement for attached game object along the x-axis 
             transform.Translate(posSpeed * Time.deltaTime, 0, 0);
         }
+        // if bool rightMove is set to false
         else if (rightMove == false)
         {
+            // sets movement for attached game object along the x-axis 
             transform.Translate(negSpeed * Time.deltaTime, 0, 0);
         }
     }
 }
+
 
 
