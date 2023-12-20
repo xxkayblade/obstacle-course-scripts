@@ -6,26 +6,37 @@ using UnityEngine;
 
 public class DropSpawner : MonoBehaviour
 {
+    // defines variable droppedObstacle as a GameObject 
     public GameObject droppedObstacle;
 
+    // defines variable dropCounter, dropZ, dropX as floats
+    // sets variables to 0, 130, -2.4f respectively
     private float dropCounter = 0;
     private float dropZ = 130; 
     private float dropX = -2.4f;
 
+    // instructions when attached game object collides with another 
     void OnCollisionEnter(Collision other)
     {
+        // while the dropCounter is less than or equal to 5
         while (dropCounter <= 5)
         {
+            // clone droppedObstacle at set position
             Instantiate(droppedObstacle, new Vector3(dropX, 8, dropZ), Quaternion.identity);
 
+            // increment dropCounter
             dropCounter++;
 
+            // increment dropZ by 9
             dropZ += 9;
             
+            // if float dropX is negative
             if (dropX < 0)
             {
+                // sets float dropX to 2.4f
                 dropX = 2.4f;
             }
+            // if float dropX positive
             else
             {
                 // sets float dropX to -2.4f
