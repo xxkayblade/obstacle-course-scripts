@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 // if the players hit any obstacles or walls, it will reset them to beginning position
-
 public class PlayerReset : MonoBehaviour
 {
+    // defines variables resetX, resetY, resetZ as floats
     private float resetX;
     private float resetY;
     private float resetZ;
@@ -15,13 +16,17 @@ public class PlayerReset : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // initially sets floats resetX, resetY, resetZ as 0f, 0,5f, and 0f respectively
         resetX = 0f;
         resetY = 0.5f;
         resetZ = 0f;
     }
 
+    // instructions if attaced game object collides with other game object
     private void OnCollisionEnter(Collision other)
     {
+        // if attached game object collides with other objects with tags 'Wall' or 'Obstacle'
+        // position of attached game object will be set to the values of resetX, resetY, and resetZ for their respective x, y, z values
         if (other.gameObject.tag == "Wall" || other.gameObject.layer == 6)
         {
             transform.position = new Vector3(resetX, resetY, resetZ);
