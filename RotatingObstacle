@@ -6,14 +6,19 @@ using UnityEngine;
 
 public class RotateObstacle : MonoBehaviour
 {
+    // Update is called once per frame
     void Update()
     {
+        // if attached game object tag is 'Positive Rotate'
         if (gameObject.tag == "Positive Rotate")
         {
+            // set rotation for game object on x-axis
             transform.Rotate(1, 0, 0);
         }
+        // if attached game object tag is 'Negative Rotate'
         else if (gameObject.tag == "Negative Rotate")
         {
+            // set rotation for game object on x-axis
             transform.Rotate(-1, 0, 0);
         }
     }
