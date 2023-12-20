@@ -1,0 +1,17 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+// sets some object to be destroyed on collision 
+public class DeletingObstacle : MonoBehaviour
+{
+    // defines variables DeleteObject as GameObject
+    public GameObject DeleteObject;
+
+    // instructions if game objects collide with attaches game object 
+    private void OnCollisionEnter(Collision other)
+    {
+        // destroys DeleteObject
+        Destroy(DeleteObject);
+    }
+}
