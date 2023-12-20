@@ -6,62 +6,87 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
+    // defines variable horiInput as a float
     private float horiInput;
 
+    
+    // defines variable movementSpeed and continuousMovement as floats
     [SerializeField] float movementSpeed = 7f;
     [SerializeField] float continuousMovement = 15f;
 
+    // defines variables jumpHeight, fallMultiplier, and lowJumpMultiplier as floats
+    // assists with the feel of the jump
     [SerializeField] float jumpHeight = 8f;
     [SerializeField] float fallMultiplier = 3.5f;
     [SerializeField] float lowJumpMultiplier = 3f;
 
+    // defines variable isJumping as a bool
     private bool isJumping;
 
+    // defines variable playerRB as a rigidbody
     Rigidbody playerRB;
     
+    // Start is called before the first frame update
     void Start()
     {
+        // grabs all the components of the rigidbody into playerRB
         playerRB = GetComponent<Rigidbody>();
 
+        // initially sets bool isJumping as false
         isJumping = false;
     }
 
+    // Update is called once per frame
     void Update()
     {
+        // calls instructions within Movement method
         Movement();
 
+        // calls instructions within Jump method
         Jump();
     }
 
+    // sets movement instructions for game object 
     void Movement()
     {
+        // grabs input from Input Manager, permits movement using 'A' and 'D' keys
+        // game object moves respective to movementSpeed
         horiInput = Input.GetAxisRaw("Horizontal") * movementSpeed * Time.deltaTime;
 
+        // game object is set to move based on horiInput on the x-axis, and continuousMovement on the z-axis
         transform.Translate(horiInput, 0, continuousMovement * Time.deltaTime);
     }
 
+    // sets jump instructions for game object
     void Jump()
     {
+        // grabs input from Input Manager, permits movement using 'Space' key
+        // if player presses 'Space' and isJumping bool is set to false
         if (Input.GetButtonDown("Jump") && isJumping == false)
         {
+            // permits upward movement for game object
             playerRB.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
 
+            // isJumping bool set to true
             isJumping = true;
         }
 
+        // if velocity of the game object along the y-axis is less than zero
         if (playerRB.velocity.y < 0)
         {
             playerRB.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime; 
         }
+        // if velocity of the game object along the y-axis is greater than zero and player is not pressing 'Space'
         else if (playerRB.velocity.y > 0 && !Input.GetButton("Jump"))
         {
             playerRB.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
     }
 
+    // called when game object collides with another
     void OnCollisionEnter(Collision other)
     {
+        // if game object collides with another with the tag 'Platform', isJumping bool is set to false
         if (other.gameObject.tag == "Platform")
         {
             isJumping = false; 
