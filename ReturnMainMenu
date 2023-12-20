@@ -1,0 +1,15 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+// returns player to main menu 
+public class Return : MonoBehaviour
+{
+   // instructions to reset scene to MainMenu
+    public void ReturnMainMenu()
+    {
+        // loads scene MainMenu
+        SceneManager.LoadScene("MainMenu");
+    }
+}
