@@ -1,0 +1,19 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class Menus : MonoBehaviour
+{
+    // instructions to change scenes from menus to level 
+    public void StartGame()
+    {
+        // scene is changed to next scene in the build
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+}
